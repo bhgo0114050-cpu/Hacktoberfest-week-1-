@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrailMate — Touch Grass</title>
+
+<style>
+:root {
+    --bg: #f4f8f3;
+    --card: #ffffff;
+    --text: #17231b;
+    --muted: #6c786f;
+    --primary: #28734b;
+    --primary-dark: #1c5637;
+    --light-green: #e5f2e8;
+    --border: #dce6de;
+    --shadow: 0 15px 45px rgba(29, 70, 43, 0.09);
+    --radius: 22px;
+}
+
+.dark {
+    --bg: #101713;
+    --card: #18221c;
+    --text: #edf6ef;
+    --muted: #9daa9f;
+    --primary: #64c989;
+    --primary-dark: #4eaa70;
+    --light-green: #203a2a;
+    --border: #2b3a30;
+    --shadow: 0 15px 45px rgba(0,0,0,.25);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: .3s;
+}
+
+button,
+select,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* NAVBAR */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,.82);
+    border-bottom: 1px solid var(--border);
+}
+
+.dark .navbar {
+    background: rgba(16,23,19,.85);
+}
+
+.nav-inner {
+    max-width: 1180px;
+    margin: auto;
+    height: 72px;
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.logo-icon {
+    width: 39px;
+    height: 39px;
+    border-radius: 13px;
+    background: var(--primary);
+    color: white;
+    display: grid;
+    place-items: center;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+}
+
+/* HERO */
+
+.hero {
+    max-width: 1180px;
+    margin: auto;
+    padding: 75px 22px 50px;
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 45px;
+    align-items: center;
+}
+
+.badge {
+    display: inline-flex;
+    gap: 7px;
+    align-items: center;
+    background: var(--light-green);
+    color: var(--primary);
+    padding: 8px 13px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: clamp(44px, 7vw, 76px);
+    line-height: .98;
+    letter-spacing: -3px;
+    margin-bottom: 20px;
+}
+
+.gradient-text {
+    color: var(--primary);
+}
+
+.hero p {
+    max-width: 600px;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    border: none;
+    border-radius: 13px;
+    padding: 14px 20px;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn-secondary {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+/* HERO VISUAL */
+
+.hero-visual {
+    min-height: 380px;
+    border-radius: 35px;
+    background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.7), transparent 25%),
+        linear-gradient(145deg, #b7dcae, #5b9b6d);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sun {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #ffe8a3;
+    top: 45px;
+    right: 55px;
+}
+
+.mountain {
+    position: absolute;
+    bottom: -40px;
+    width: 330px;
+    height: 230px;
+    background: #397653;
+    clip-path: polygon(50% 0,100% 100%,0 100%);
+}
+
+.mountain.two {
+    width: 450px;
+    height: 200px;
+    left: -80px;
+    background: #518b62;
+}
+
+.hero-card {
+    position: relative;
+    z-index: 3;
+    width: 270px;
+    padding: 23px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.92);
+    box-shadow: 0 20px 50px rgba(0,0,0,.15);
+    color: #17231b;
+}
+
+.hero-card small {
+    color: #5e7063;
+}
+
+.hero-card h3 {
+    margin: 8px 0;
+}
+
+.progress {
+    height: 8px;
+    background: #dbe7dd;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.progress-bar {
+    width: 68%;
+    height: 100%;
+    background: #28734b;
+}
+
+/* SECTIONS */
+
+.section {
+    max-width: 1180px;
+    margin: auto;
+    padding: 45px 22px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.section-title h2 {
+    font-size: 34px;
+    margin-bottom: 8px;
+}
+
+.section-title p {
+    color: var(--muted);
+}
+
+/* GENERATOR */
+
+.generator {
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 30px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.field label {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+select {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    border-radius: 12px;
+    padding: 13px;
+    outline: none;
+}
+
+.generate-btn {
+    width: 100%;
+    margin-top: 22px;
+}
+
+/* MISSION */
+
+.mission-section {
+    display: none;
+}
+
+.mission-section.visible {
+    display: block;
+    animation: slideUp .5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mission-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+}
+
+.ai-tag {
+    display: inline-block;
+    color: var(--primary);
+    background: var(--light-green);
+    padding: 7px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.mission-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.mission-header h2 {
+    font-size: 31px;
+}
+
+.difficulty {
+    padding: 8px 12px;
+    border-radius: 50px;
+    background: var(--light-green);
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.mission-description {
+    color: var(--muted);
+    margin: 12px 0 25px;
+}
+
+.mission-list {
+    display: grid;
+    gap: 12px;
+}
+
+.mission-item {
+    display: flex;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    transition: .2s;
+}
+
+.mission-item:hover {
+    border-color: var(--primary);
+    transform: translateX(3px);
+}
+
+.mission-number {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--light-green);
+    color: var(--primary);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+}
+
+.mission-item strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.mission-item span {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.mission-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+/* TIMER */
+
+.timer-box {
+    margin-top: 25px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 25px;
+    border-radius: 18px;
+    text-align: center;
+}
+
+.timer {
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.timer-status {
+    color: var(--muted);
+    margin: 6px 0 15px;
+}
+
+/* STATS */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 23px;
+}
+
+.stat-icon {
+    font-size: 24px;
+}
+
+.stat-card strong {
+    display: block;
+    font-size: 30px;
+    margin: 8px 0 3px;
+}
+
+.stat-card span {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* TOUCH GRASS */
+
+.touch-grass {
+    max-width: 1180px;
+    margin: 30px auto 50px;
+    padding: 45px 25px;
+    border-radius: 30px;
+    text-align: center;
+    background: linear-gradient(135deg, #245d3b, #39835a);
+    color: white;
+}
+
+.touch-grass h2 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.touch-grass p {
+    opacity: .85;
+    max-width: 550px;
+    margin: auto;
+    line-height: 1.6;
+}
+
+.touch-btn {
+    margin-top: 22px;
+    background: white;
+    color: #245d3b;
+}
+
+/* PHOTO */
+
+.photo-area {
+    border: 2px dashed var(--border);
+    border-radius: 17px;
+    padding: 30px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.photo-area p {
+    color: var(--muted);
+    margin: 8px 0 15px;
+}
+
+.photo-preview {
+    display: none;
+    max-width: 240px;
+    max-height: 220px;
+    border-radius: 15px;
+    margin: 15px auto;
+}
+
+/* HISTORY */
+
+.history {
+    display: grid;
+    gap: 10px;
+}
+
+.history-item {
+    padding: 15px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.history-item span {
+    color: var(--muted);
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 35px 20px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+}
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #17231b;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 12px;
+    z-index: 999;
+    transition: .3s;
+    opacity: 0;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* MOBILE */
+
+@media(max-width:800px) {
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding-top: 45px;
+    }
+
+    .hero-visual {
+        min-height: 300px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mission-header {
+        flex-direction: column;
+    }
+}
+
+@media(max-width:500px) {
+
+    .hero h1 {
+        font-size: 45px;
+    }
+
+    .generator,
+    .mission-card {
+        padding: 20px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .timer {
+        font-size: 42px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="nav-inner">
+
+        <div class="logo">
+            <div class="logo-icon">🌿</div>
+            TrailMate
+        </div>
+
+        <div class="nav-actions">
+            <button class="icon-btn" onclick="toggleTheme()" id="themeBtn">
+                🌙
+            </button>
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div>
+
+        <div class="badge">
+            🌱 AI-powered outdoor adventures
+        </div>
+
+        <h1>
+            Touch Grass.<br>
+            <span class="gradient-text">Explore More.</span>
+        </h1>
+
+        <p>
+            TrailMate turns your free time into a personalized
+            outdoor adventure. Tell us what you like and let
+            your AI adventure planner create a reason to step outside.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button class="btn btn-primary"
+                    onclick="scrollToGenerator()">
+                Create Adventure →
+            </button>
+
+            <button class="btn btn-secondary"
+                    onclick="touchGrassMode()">
+                📵 Touch Grass Mode
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-visual">
+
+        <div class="sun"></div>
+
+        <div class="mountain two"></div>
+        <div class="mountain"></div>
+
+        <div class="hero-card">
+
+            <small>YOUR NEXT ADVENTURE</small>
+
+            <h3>🌳 Forest Explorer</h3>
+
+            <p style="font-size:13px;color:#617064">
+                30 minutes • Easy
+            </p>
+
+            <div class="progress">
+                <div class="progress-bar"></div>
+            </div>
+
+            <p style="font-size:12px;margin-top:8px;color:#617064">
+                3 / 5 missions
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- GENERATOR -->
+
+<section class="section" id="generator">
+
+    <div class="section-title">
+
+        <h2>Build Your Adventure</h2>
+
+        <p>
+            Choose your preferences and TrailMate will create a quest.
+        </p>
+
+    </div>
+
+
+    <div class="generator">
+
+        <div class="form-grid">
+
+            <div class="field">
+
+                <label>⏱️ Time available</label>
+
+                <select id="time">
+                    <option value="15">15 minutes</option>
+                    <option value="30" selected>30 minutes</option>
+                    <option value="45">45 minutes</option>
+                    <option value="60">1 hour</option>
+                    <option value="90">90 minutes</option>
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>🌿 Activity</label>
+
+                <select id="activity">
+
+                    <option value="walking">
+                        Walking
+                    </option>
+
+                    <option value="nature">
+                        Nature exploration
+                    </option>
+
+                    <option value="photography">
+                        Outdoor photography
+                    </option>
+
+                    <option value="birdwatching">
+                        Birdwatching
+                    </option>
+
+                    <option value="fitness">
+                        Outdoor fitness
+                    </option>
+
+                    <option value="mindfulness">
+                        Mindfulness
+                    </option>
+
+                    <option value="random">
+                        Surprise me
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>🎯 Difficulty</label>
+
+                <select id="difficulty">
+
+                    <option value="easy">
+                        Easy
+                    </option>
+
+                    <option value="medium">
+                        Medium
+                    </option>
+
+                    <option value="challenging">
+                        Challenging
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <button class="btn btn-primary generate-btn"
+                onclick="generateAdventure()">
+
+            🤖 Generate My Adventure
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- GENERATED MISSION -->
+
+<section class="section mission-section" id="missionSection">
+
+    <div class="mission-card">
+
+        <span class="ai-tag">
+            🤖 AI ADVENTURE GENERATOR
+        </span>
+
+
+        <div class="mission-header">
+
+            <div>
+
+                <h2 id="missionTitle">
+                    Your Adventure
+                </h2>
+
+                <p class="mission-description"
+                   id="missionDescription">
+                </p>
+
+            </div>
+
+            <div class="difficulty" id="missionDifficulty">
+                EASY
+            </div>
+
+        </div>
+
+
+        <div class="mission-list" id="missionList">
+        </div>
+
+
+        <!-- TIMER -->
+
+        <div class="timer-box">
+
+            <div class="timer" id="timer">
+                00:00
+            </div>
+
+            <div class="timer-status" id="timerStatus">
+                Ready when you are.
+            </div>
+
+            <button class="btn btn-primary"
+                    onclick="startTimer()"
+                    id="startTimerBtn">
+
+                ▶ Start Adventure
+
+            </button>
+
+            <button class="btn btn-secondary"
+                    onclick="stopTimer()"
+                    id="stopTimerBtn"
+                    style="display:none">
+
+                ⏸ Pause
+
+            </button>
+
+            <button class="btn btn-primary"
+                    onclick="completeAdventure()">
+
+                ✓ Complete Adventure
+
+            </button>
+
+        </div>
+
+
+        <!-- PHOTO -->
+
+        <div class="photo-area">
+
+            <h3>📸 Record a Discovery</h3>
+
+            <p>
+                Found something interesting?
+                Add a photo to your adventure.
+            </p>
+
+            <input type="file"
+                   id="photoInput"
+                   accept="image/*"
+                   onchange="previewPhoto(event)"
+                   style="display:none">
+
+            <button class="btn btn-secondary"
+                    onclick="document.getElementById('photoInput').click()">
+
+                📷 Add Photo
+
+            </button>
+
+            <img id="photoPreview"
+                 class="photo-preview">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- STATS -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <h2>Your Progress</h2>
+
+        <p>
+            Every minute outside counts.
+        </p>
+
+    </div>
+
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">🌳</div>
+
+            <strong id="adventures">0</strong>
+
+            <span>Adventures completed</span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">⏱️</div>
+
+            <strong id="minutes">0</strong>
+
+            <span>Minutes outdoors</span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">⭐</div>
+
+            <strong id="xp">0</strong>
+
+            <span>XP earned</span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">🔥</div>
+
+            <strong id="streak">0</strong>
+
+            <span>Adventure streak</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TOUCH GRASS -->
+
+<section class="touch-grass">
+
+    <h2>📵 Touch Grass Mode</h2>
+
+    <p>
+        Put your phone down. Go outside.
+        We'll start the timer and you won't need
+        to stare at your screen.
+    </p>
+
+    <button class="btn touch-btn"
+            onclick="touchGrassMode()">
+
+        🌱 I'm Going Outside
+
+    </button>
+
+</section>
+
+
+<!-- HISTORY -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <h2>Adventure History</h2>
+
+        <p>Your outdoor journey.</p>
+
+    </div>
+
+    <div class="history" id="history">
+
+        <div class="history-item">
+
+            <strong>No adventures yet</strong>
+
+            <span>Go touch grass 🌱</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    🌿 TrailMate
+    <br>
+    <span>
+        Spend less time on screens. Experience more outside.
+    </span>
+
+</footer>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================================
+   DATA
+========================================= */
+
+const adventures = {
+
+    walking: {
+
+        titles: [
+            "The Green Mile",
+            "Neighbourhood Explorer",
+            "The Slow Walk",
+            "Hidden Paths"
+        ],
+
+        descriptions: [
+            "Take a relaxed walk and notice things you normally pass without seeing.",
+            "Explore a familiar area as if you were visiting it for the first time.",
+            "Slow down and turn an ordinary walk into a small adventure."
+        ],
+
+        missions: [
+            ["Look Up", "Walk for five minutes while paying attention to trees, buildings and the sky."],
+            ["Find Something New", "Find something you have never noticed before."],
+            ["Sound Hunt", "Stop somewhere safe and identify three different sounds."],
+            ["Colour Quest", "Find five different colours in your surroundings."],
+            ["Final Stretch", "Walk for another five minutes without checking your phone."]
+        ]
+    },
+
+
+    nature: {
+
+        titles: [
+            "Nature Detective",
+            "Mini Explorer",
+            "Green Discovery",
+            "Wild Observer"
+        ],
+
+        descriptions: [
+            "Slow down and investigate the small pieces of nature around you.",
+            "You don't need a forest. Your local area is enough for today's expedition."
+        ],
+
+        missions: [
+            ["Leaf Hunt", "Find two leaves that look noticeably different."],
+            ["Texture Search", "Find three different natural textures."],
+            ["Tiny World", "Look closely at the ground and discover something small."],
+            ["Sky Watch", "Spend two minutes observing the sky."],
+            ["Nature Pause", "Stand quietly and observe your surroundings for one minute."]
+        ]
+    },
+
+
+    photography: {
+
+        titles: [
+            "Outdoor Photographer",
+            "Frame the World",
+            "Five Interesting Things",
+            "Photo Walk"
+        ],
+
+        descriptions: [
+            "Use your camera as a reason to look more carefully at your surroundings.",
+            "Your mission is to find beauty in ordinary places."
+        ],
+
+        missions: [
+            ["Leading Lines", "Find something that creates an interesting line or path."],
+            ["Texture", "Photograph an interesting natural texture."],
+            ["Tiny Detail", "Take a close-up photo of something you normally ignore."],
+            ["Sky Frame", "Capture an interesting view of the sky."],
+            ["Your Favourite", "Take one photo that represents today's adventure."]
+        ]
+    },
+
+
+    birdwatching: {
+
+        titles: [
+            "Bird Detective",
+            "Sky Watcher",
+            "Feathered Friends",
+            "Urban Bird Hunt"
+        ],
+
+        descriptions: [
+            "Slow down, listen carefully and see what lives around you.",
+            "You don't need special equipment. Your ears and eyes are enough."
+        ],
+
+        missions: [
+            ["Listen", "Stand quietly for two minutes and listen for bird sounds."],
+            ["Look Up", "Scan nearby trees, rooftops and open sky."],
+            ["Movement", "Look for movement rather than searching for a specific bird."],
+            ["Count", "Try to notice how many different birds you can spot."],
+            ["Quiet Minute", "Spend one full minute simply observing."]
+        ]
+    },
+
+
+    fitness: {
+
+        titles: [
+            "Outdoor Energy",
+            "Green Workout",
+            "Move Outside",
+            "Fresh Air Challenge"
+        ],
+
+        descriptions: [
+            "Get moving outdoors without turning the adventure into a screen-based workout.",
+            "A simple outdoor movement challenge designed to get you active."
+        ],
+
+        missions: [
+            ["Warm Up", "Walk at a comfortable pace for five minutes."],
+            ["Brisk Walk", "Increase your pace for the next few minutes."],
+            ["Movement Break", "Do some comfortable bodyweight movements in a safe place."],
+            ["Explore", "Walk somewhere you don't normally go."],
+            ["Cool Down", "Finish with a relaxed walk and slow breathing."]
+        ]
+    },
+
+
+    mindfulness: {
+
+        titles: [
+            "The Quiet Trail",
+            "Five Senses Walk",
+            "Mindful Explorer",
+            "Slow Down"
+        ],
+
+        descriptions: [
+            "This adventure is about noticing your surroundings rather than rushing through them.",
+            "Leave your usual routine behind and reconnect with the world around you."
+        ],
+
+        missions: [
+            ["Sight", "Notice five different things around you."],
+            ["Sound", "Listen quietly and identify three sounds."],
+            ["Touch", "Notice the textures around you without disturbing nature."],
+            ["Breathing", "Take a few slow, comfortable breaths."],
+            ["Be Present", "Spend your final few minutes without checking your phone."]
+        ]
+    }
+};
+
+
+/* =========================================
+   RANDOM HELPERS
+========================================= */
+
+function randomItem(array) {
+
+    return array[
+        Math.floor(Math.random() * array.length)
+    ];
+
+}
+
+
+function shuffle(array) {
+
+    return [...array].sort(() => Math.random() - 0.5);
+
+}
+
+
+/* =========================================
+   GENERATE ADVENTURE
+========================================= */
+
+function generateAdventure() {
+
+    let time =
+        Number(document.getElementById("time").value);
+
+    let activity =
+        document.getElementById("activity").value;
+
+    let difficulty =
+        document.getElementById("difficulty").value;
+
+
+    if (activity === "random") {
+
+        const options =
+            Object.keys(adventures);
+
+        activity =
+            randomItem(options);
+
+    }
+
+
+    const data =
+        adventures[activity];
+
+
+    const title =
+        randomItem(data.titles);
+
+
+    const description =
+        randomItem(data.descriptions);
+
+
+    document.getElementById("missionTitle")
+        .textContent = "🌿 " + title;
+
+
+    document.getElementById("missionDescription")
+        .textContent =
+        `${time} minutes • ${description}`;
+
+
+    document.getElementById("missionDifficulty")
+        .textContent =
+        difficulty.toUpperCase();
+
+
+    let missionCount = 4;
+
+    if (time >= 45) missionCount = 5;
+
+
+    let selectedMissions =
+        shuffle(data.missions)
+        .slice(0, missionCount);
+
+
+    const list =
+        document.getElementById("missionList");
+
+
+    list.innerHTML = "";
+
+
+    selectedMissions.forEach((mission, index) => {
+
+        const item =
+            document.createElement("div");
+
+        item.className = "mission-item";
+
+
+        item.innerHTML = `
+
+            <div class="mission-number">
+                ${index + 1}
+            </div>
+
+            <div>
+
+                <strong>${mission[0]}</strong>
+
+                <span>${mission[1]}</span>
+
+            </div>
+
+        `;
+
+
+        list.appendChild(item);
+
+    });
+
+
+    currentAdventure = {
+        title,
+        activity,
+        time,
+        difficulty
+    };
+
+
+    document.getElementById("missionSection")
+        .classList.add("visible");
+
+
+    document.getElementById("missionSection")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+
+    showToast(
+        "🤖 Your adventure has been generated!"
+    );
+
+}
+
+
+/* =========================================
+   TIMER
+========================================= */
+
+let timerSeconds = 0;
+let timerInterval = null;
+let currentAdventure = null;
+
+
+function startTimer() {
+
+    if (timerInterval) return;
+
+
+    document.getElementById("timerStatus")
+        .textContent =
+        "Adventure in progress 🌿";
+
+
+    document.getElementById("startTimerBtn")
+        .style.display = "none";
+
+
+    document.getElementById("stopTimerBtn")
+        .style.display = "inline-block";
+
+
+    timerInterval = setInterval(() => {
+
+        timerSeconds++;
+
+        updateTimer();
+
+    }, 1000);
+
+}
+
+
+function stopTimer() {
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+
+    document.getElementById("timerStatus")
+        .textContent =
+        "Adventure paused. Enjoy the moment.";
+
+
+    document.getElementById("startTimerBtn")
+        .style.display = "inline-block";
+
+
+    document.getElementById("stopTimerBtn")
+        .style.display = "none";
+
+}
+
+
+function updateTimer() {
+
+    let mins =
+        Math.floor(timerSeconds / 60);
+
+    let secs =
+        timerSeconds % 60;
+
+
+    document.getElementById("timer")
+        .textContent =
+        String(mins).padStart(2, "0")
+        + ":" +
+        String(secs).padStart(2, "0");
+
+}
+
+
+/* =========================================
+   COMPLETE ADVENTURE
+========================================= */
+
+function completeAdventure() {
+
+    stopTimer();
+
+
+    if (!currentAdventure) {
+
+        showToast(
+            "Generate an adventure first."
+        );
+
+        return;
+
+    }
+
+
+    let minutesSpent =
+        Math.max(
+            1,
+            Math.floor(timerSeconds / 60)
+        );
+
+
+    let stats =
+        getStats();
+
+
+    stats.adventures++;
+
+    stats.minutes += minutesSpent;
+
+    stats.xp += 50;
+
+
+    updateStreak(stats);
+
+
+    saveStats(stats);
+
+
+    addHistory(
+        currentAdventure.title,
+        minutesSpent
+    );
+
+
+    updateStatsUI();
+
+
+    timerSeconds = 0;
+
+    updateTimer();
+
+
+    document.getElementById("timerStatus")
+        .textContent =
+        "🎉 Adventure completed!";
+
+
+    showToast(
+        "🎉 Adventure complete! +50 XP"
+    );
+
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+function getStats() {
+
+    return JSON.parse(
+        localStorage.getItem("trailMateStats")
+    ) || {
+
+        adventures: 0,
+        minutes: 0,
+        xp: 0,
+        streak: 0,
+        lastDate: null
+
+    };
+
+}
+
+
+function saveStats(stats) {
+
+    localStorage.setItem(
+        "trailMateStats",
+        JSON.stringify(stats)
+    );
+
+}
+
+
+function updateStreak(stats) {
+
+    const today =
+        new Date().toDateString();
+
+
+    if (stats.lastDate !== today) {
+
+        stats.streak++;
+
+        stats.lastDate = today;
+
+    }
+
+}
+
+
+function updateStatsUI() {
+
+    const stats =
+        getStats();
+
+
+    document.getElementById("adventures")
+        .textContent =
+        stats.adventures;
+
+
+    document.getElementById("minutes")
+        .textContent =
+        stats.minutes;
+
+
+    document.getElementById("xp")
+        .textContent =
+        stats.xp;
+
+
+    document.getElementById("streak")
+        .textContent =
+        stats.streak;
+
+}
+
+
+/* =========================================
+   HISTORY
+========================================= */
+
+function addHistory(title, minutes) {
+
+    let history =
+        JSON.parse(
+            localStorage.getItem(
+                "trailMateHistory"
+            )
+        ) || [];
+
+
+    history.unshift({
+
+        title,
+        minutes,
+        date:
+            new Date().toLocaleDateString()
+
+    });
+
+
+    history =
+        history.slice(0, 8);
+
+
+    localStorage.setItem(
+        "trailMateHistory",
+        JSON.stringify(history)
+    );
+
+
+    renderHistory();
+
+}
+
+
+function renderHistory() {
+
+    const history =
+        JSON.parse(
+            localStorage.getItem(
+                "trailMateHistory"
+            )
+        ) || [];
+
+
+    const container =
+        document.getElementById("history");
+
+
+    if (history.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="history-item">
+
+                <strong>
+                    No adventures yet
+                </strong>
+
+                <span>
+                    Go touch grass 🌱
+                </span>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    history.forEach(item => {
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "history-item";
+
+
+        div.innerHTML = `
+
+            <strong>
+                🌿 ${item.title}
+            </strong>
+
+            <span>
+                ${item.minutes} min • ${item.date}
+            </span>
+
+        `;
+
+
+        container.appendChild(div);
+
+    });
+
+}
+
+
+/* =========================================
+   PHOTO PREVIEW
+========================================= */
+
+function previewPhoto(event) {
+
+    const file =
+        event.target.files[0];
+
+
+    if (!file) return;
+
+
+    const preview =
+        document.getElementById(
+            "photoPreview"
+        );
+
+
+    preview.src =
+        URL.createObjectURL(file);
+
+
+    preview.style.display =
+        "block";
+
+
+    showToast(
+        "📸 Discovery added!"
+    );
+
+}
+
+
+/* =========================================
+   TOUCH GRASS MODE
+========================================= */
+
+function touchGrassMode() {
+
+    if (!currentAdventure) {
+
+        generateAdventure();
+
+    }
+
+
+    document.body.scrollIntoView({
+        behavior: "smooth"
+    });
+
+
+    setTimeout(() => {
+
+        startTimer();
+
+        showToast(
+            "📵 Phone down. Go explore!"
+        );
+
+    }, 800);
+
+}
+
+
+/* =========================================
+   THEME
+========================================= */
+
+function toggleTheme() {
+
+    document.body.classList.toggle("dark");
+
+
+    const dark =
+        document.body.classList.contains(
+            "dark"
+        );
+
+
+    localStorage.setItem(
+        "trailMateDark",
+        dark
+    );
+
+
+    document.getElementById("themeBtn")
+        .textContent =
+        dark ? "☀️" : "🌙";
+
+}
+
+
+function loadTheme() {
+
+    const dark =
+        localStorage.getItem(
+            "trailMateDark"
+        ) === "true";
+
+
+    if (dark) {
+
+        document.body.classList.add(
+            "dark"
+        );
+
+        document.getElementById("themeBtn")
+            .textContent = "☀️";
+
+    }
+
+}
+
+
+/* =========================================
+   SCROLL
+========================================= */
+
+function scrollToGenerator() {
+
+    document.getElementById("generator")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+let toastTimeout;
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add("show");
+
+
+    clearTimeout(toastTimeout);
+
+
+    toastTimeout =
+        setTimeout(() => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        }, 3000);
+
+}
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+loadTheme();
+
+updateStatsUI();
+
+renderHistory();
+
+</script>
+
+</body>
+</html>
