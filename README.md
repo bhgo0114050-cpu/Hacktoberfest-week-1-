@@ -85,11 +85,3 @@ Missions:
 
 No external framework is required.
 
----
-
-## 📁 Project Structure
-
-TrailMate/
-│
-├── index.html
-└── README.md
